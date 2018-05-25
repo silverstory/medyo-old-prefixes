@@ -1,0 +1,18 @@
+{
+  "profileid": "0041955",
+  "mobile": "+639335146014",
+  "email": "a@a.com",
+  "name": {
+    "first": "Floyd",
+    "middle": "Money",
+    "last": "Mayweather"
+  },
+  "distinction": "OPEMPLOYEE",
+  "personaccesslevel": "001",
+  "recordstatus": "ACTIVE",
+  "photothumbnailurl": "https://i.pinimg.com/originals/55/8c/d2/558cd2e4981e8e2470c238444c8dee0d.jpg",
+  "employee": {
+    "position": "Presidential Staff Officer I",
+    "office": "Malacanang Records Office"
+  }
+}
