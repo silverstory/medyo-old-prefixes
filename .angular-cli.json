@@ -9,13 +9,7 @@
       "outDir": "dist/publicweb",
       "assets": [
         "assets",
-        "favicon.ico",
-        {
-          "allowOutsideOutDir": true,
-          "glob": "**/*.*",
-          "input": "../server",
-          "output": "../"
-        }
+        "favicon.ico"
       ],
       "index": "index.html",
       "main": "main.ts",

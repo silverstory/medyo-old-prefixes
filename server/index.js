@@ -6,11 +6,11 @@ const path = require('path');
 // const config = require("./config/config.js");
 require('./mongo').connect();
 
-const root = './';
+const root = '../dist/';
 
 const app = express();
 const port = process.env.PORT || 3000;
-const publicweb = process.env.PUBLICWEB || './publicweb';
+const publicweb = process.env.PUBLICWEB || '../dist/publicweb';
 
 // cors middleware
 app.use(cors());
