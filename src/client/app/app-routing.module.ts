@@ -1,8 +1,5 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HeroesComponent }      from './heroes/heroes.component';
-import { DashboardComponent }   from './dashboard/dashboard.component';
-import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -19,9 +16,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: 'signup', component: SignupComponent, pathMatch: 'full' },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], pathMatch: 'full' },
-  { path: 'detail/:id', component: HeroDetailComponent, canActivate: [AuthGuard] },
-  { path: 'heroes', component: HeroesComponent, canActivate: [AuthGuard], pathMatch: 'full' },
   { path: 'employee/:id', component: EmployeeComponent, data: { state: 'employee' }, canActivate: [AuthGuard], runGuardsAndResolvers: 'paramsChange' },
   { path: 'visitor/:id', component: VisitorComponent, data: { state: 'visitor' }, canActivate: [AuthGuard], runGuardsAndResolvers: 'paramsChange' },
   { path: 'resident/:id', component: ResidentComponent, data: { state: 'resident' }, canActivate: [AuthGuard], runGuardsAndResolvers: 'paramsChange' },
