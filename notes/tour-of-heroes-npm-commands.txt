@@ -1,3 +1,7 @@
+copy all contents of a folder
+
+cp -a /source/. /dest/
+
 npm install -g @angular/cli
 
 ng new angular-tour-of-heroes

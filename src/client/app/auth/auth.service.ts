@@ -11,10 +11,11 @@ import { RequestOptions } from '@angular/http';
 
 import decode from 'jwt-decode';
 
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
+const helper = new JwtHelperService();
 
 @Injectable()
 export class AuthService {
@@ -111,11 +112,11 @@ export class AuthService {
     // return a boolean reflecting
     // whether or not the token is expired
     // return tokenNotExpired(null, token);
-    const helper = new JwtHelperService();
+
     // const decodedToken = helper.decodeToken(token);
     // const expirationDate = helper.getTokenExpirationDate(token);
     const isExpired = helper.isTokenExpired(token);
-    return isExpired;
+    return !isExpired;
   }
   // > NEW TOKEN CODE
 
@@ -148,7 +149,7 @@ export class AuthService {
       this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
-      return null;
+      return error;
     };
   }
 

@@ -7,7 +7,7 @@
 
 # dependencies
 /node_modules
-/src/server/node_modules
+/server/node_modules
 
 # IDEs and editors
 /.idea
@@ -43,7 +43,7 @@ testem.log
 Thumbs.db
 
 # ENV File
-/src/server/.env
+/server/.env
 
 # Secrets
 /secrets

@@ -70,7 +70,7 @@ export class ProfileService {
       this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
-      return null;
+      return error;
     };
   }
 
