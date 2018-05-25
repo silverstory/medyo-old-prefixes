@@ -1,14 +1,16 @@
-import 'rxjs/add/operator/do';
+
+import {tap} from 'rxjs/operators';
+
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 export class JwtInterceptor implements HttpInterceptor {
   constructor(public auth: AuthService,
               private router: Router) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
-    return next.handle(request).do((event: HttpEvent<any>) => {
+    return next.handle(request).pipe(tap((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
 
         // do stuff with response if you want
@@ -39,6 +41,6 @@ export class JwtInterceptor implements HttpInterceptor {
           // or show a modal
         }
       }
-    });
+    }));
   }
 }

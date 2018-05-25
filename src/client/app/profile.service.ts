@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Profile } from './profile';
-// import { HEROES } from './mock-heroes';
 
 // import { Observable } from 'rxjs/Rx';
-import { of } from 'rxjs/observable/of';
+import { Observable, pipe } from 'rxjs';
 
 import { MessageService } from './message.service';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { catchError, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { map, catchError, tap } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -72,7 +70,7 @@ export class ProfileService {
       this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
-      return of(result as T);
+      return null;
     };
   }
 

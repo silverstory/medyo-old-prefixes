@@ -1,11 +1,10 @@
 import { Injectable, Testability } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject,  Observable } from 'rxjs';
 import { User } from './user';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { tokenNotExpired } from 'angular2-jwt';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+// import { tokenNotExpired } from 'angular2-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from '../message.service';
 import { RequestOptions } from '@angular/http';
@@ -93,8 +92,8 @@ export class AuthService {
     headers.append('Content-Type', 'application/json');
 
     const url = `${this.userServiceUrl}/profile`;
-    return this.http.get(url, {headers: headers})
-    .map( ( v: any ) => v.user )
+    return this.http.get(url, {headers: headers}).pipe(
+    map( ( v: any ) => v.user ))
     .pipe(
       tap( ( data: User ) => // OR tap( ( data: any ) => data.any)
           this.log(`fetched user profile`)),
@@ -111,16 +110,14 @@ export class AuthService {
     const token = this.getToken();
     // return a boolean reflecting
     // whether or not the token is expired
-    return tokenNotExpired(null, token);
+    // return tokenNotExpired(null, token);
+    const helper = new JwtHelperService();
+    // const decodedToken = helper.decodeToken(token);
+    // const expirationDate = helper.getTokenExpirationDate(token);
+    const isExpired = helper.isTokenExpired(token);
+    return isExpired;
   }
   // > NEW TOKEN CODE
-
-  // OLD TOKEN CODE
-  // loadToken() {
-  //   const token = localStorage.getItem('token');
-  //   this.authToken = token;
-  // }
-  // OLD TOKEN CODE
 
   storeUserData(token, user) {
     localStorage.setItem('token', token);
@@ -151,7 +148,7 @@ export class AuthService {
       this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
-      return of(result as T);
+      return null;
     };
   }
 
