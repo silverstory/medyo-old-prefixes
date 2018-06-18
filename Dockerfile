@@ -19,14 +19,14 @@ RUN npm cache clean --force
 # Node server
 FROM node:8.11.3-alpine as node-server
 WORKDIR /usr/src/app
-COPY ["./src/server/package.json", "./src/server/package-lock.json", "./"]
+COPY ["./server/package.json", "./server/package-lock.json", "./"]
 RUN npm install --production --silent && mv node_modules ../
-COPY ./src/server /usr/src/app
+COPY ./server /usr/src/app
 
 # Final image
 FROM node:8.11.3-alpine
 WORKDIR /usr/src/app
 COPY --from=node-server /usr/src /usr/src
-COPY --from=client-app /home/node/app/dist ./
+COPY --from=client-app /home/node/app /usr/src
 EXPOSE 3000
 CMD ["node", "index"]
