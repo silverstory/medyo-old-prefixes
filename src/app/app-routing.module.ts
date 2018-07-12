@@ -10,9 +10,11 @@ import { VisitorComponent } from './visitor/visitor.component';
 import { ResidentComponent } from './resident/resident.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ProfileNotFoundComponent } from './profile-not-found/profile-not-found.component';
+import { OPIDComponent } from './op-id/op-id.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard], pathMatch: 'full' },
+  { path: 'OP-ID/:text', component: OPIDComponent, data: { state: 'op-id' }, runGuardsAndResolvers: 'paramsChange' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: 'signup', component: SignupComponent, pathMatch: 'full' },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], pathMatch: 'full' },

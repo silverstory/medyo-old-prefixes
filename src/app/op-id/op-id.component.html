@@ -1,0 +1,50 @@
+<h2 style="text-align: center;">IP Address: {{ client }}</h2>
+<div class="container" *ngIf="validate">
+  <mat-card class="parent-card" [@homeTransition]="validate">
+    <div class="row">
+      <div class="column">
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="VALIDATE">verified_user</mat-icon></div>
+            <mat-card-title>VALIDATE</mat-card-title>
+          </mat-card-header>
+          <div class="row">
+            <p>A text message with a 6-digit verification code was just sent to {{name}}'s mobile number</p>
+          </div>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Enter code" [(ngModel)]="token" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+          <mat-card-actions>
+            <button mat-raised-button color="accent">VERIFY</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card>
+</div>
+<div class="container" *ngIf="profile">
+  <mat-card class="parent-card" [@homeTransition]="profile">
+    <div class="row">
+      <div class="column">
+        <mat-card class="column-card">
+          <img mat-card-image src="{{profile.photothumbnailurl}}" alt="Photo">
+        </mat-card>
+      </div>
+      <div class="column">
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="STATUS">person</mat-icon></div>
+            <mat-card-title>STATUS</mat-card-title>
+          </mat-card-header>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput readonly [(ngModel)]="profile.recordstatus" style="width:100%;font-weight:bold;font-size:large;color: #424242;text-align: center">
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card>
+</div>

@@ -35,6 +35,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { VisitorComponent } from './visitor/visitor.component';
 import { ResidentComponent } from './resident/resident.component';
 import { ProfileNotFoundComponent } from './profile-not-found/profile-not-found.component';
+import { OPIDComponent } from './op-id/op-id.component';
 
 // the second parameter 'fr' is optional
 // registerLocaleData(localeFr, 'fr');
@@ -55,7 +56,8 @@ registerLocaleData(localeEnPh, 'en-PH', localeEnPhExtra);
     EmployeeComponent,
     VisitorComponent,
     ResidentComponent,
-    ProfileNotFoundComponent
+    ProfileNotFoundComponent,
+    OPIDComponent
   ],
   imports: [
     BrowserModule,

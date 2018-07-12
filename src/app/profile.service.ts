@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Profile } from './profile';
 
 // import { Observable } from 'rxjs/Rx';
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { MessageService } from './message.service';
 

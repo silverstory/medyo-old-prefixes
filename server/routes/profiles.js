@@ -5,7 +5,12 @@ const profileService = require('../services/profile.service');
 
 // GET http://localhost:3000/api/profile/270253d17070590077106fba4323188ea733c6aec1f2ed040c47476ef0202365
 router.get('/profile/:text', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
-// router.get('/profile/:text', async (req, res, next) => {  
+// router.get('/profile/:text', async (req, res, next) => {
+  profileService.findProfile(req, res, next);
+});
+
+// FIND Profile (No Auth)
+router.get('/opid/v/:text', async (req, res, next) => {
   profileService.findProfile(req, res, next);
 });
 

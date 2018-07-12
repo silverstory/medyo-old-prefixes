@@ -1,0 +1,138 @@
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Ipwhitelist } from '../ipwhitelist';
+
+// ** NEW ANIMATION ** //
+import {trigger, stagger, animate, style, group, query, transition, keyframes} from '@angular/animations';
+
+import { Profile } from '../profile';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Location } from '@angular/common';
+
+export const homeTransition = trigger('homeTransition', [
+  transition(':enter', [
+    query('.column', style({ opacity: 0 }), { optional: true }),
+    query('.column', stagger(300, [
+      style({ transform: 'translateY(100px)' }),
+      animate('1s cubic-bezier(.75,-0.48,.26,1.52)', style({transform: 'translateY(0px)', opacity: 1})),
+    ]), { optional: true }),
+  ]),
+  transition(':leave', [
+    query('.column', stagger(300, [
+      style({ transform: 'translateY(0px)', opacity: 1 }),
+      animate('1s cubic-bezier(.75,-0.48,.26,1.52)', style({transform: 'translateY(100px)', opacity: 0})),
+    ]), { optional: true }),
+  ])
+]);
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+@Component({
+  selector: 'app-op-id',
+  templateUrl: './op-id.component.html',
+  styleUrls: ['./op-id.component.css'],
+  animations: [ homeTransition ],
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '[@homeTransition]': ''
+  }
+})
+export class OPIDComponent implements OnInit, OnDestroy {
+
+  @Input() profile: Profile = null;
+  @Input() validate: String = null;
+  private tmpProfile: Profile = null;
+  token: string;
+  name: string;
+  valid: Boolean = false;
+  navigationSubscription;
+
+  client: String;
+  phrase;
+  private api = '/api';
+
+  constructor(private http: HttpClient,
+              private route: ActivatedRoute,
+              private router: Router,
+              private location: Location
+            ) {
+    // subscribe to the router events - storing the subscription so
+    // we can unsubscribe later.
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.getProfile();
+      }
+    });
+  }
+
+  async getProfile() {
+
+    this.validate = null;
+
+    // get client ip
+    const data = await this.http.get<any>('https://api.ipify.org?format=json').toPromise();
+    this.client = data['ip'];
+
+    // check if in the ip whitelist
+    const ipurl = `${this.api}/ipwhitelist/c/${this.client}`;
+    const ipwhitelist: Ipwhitelist = await this.http.get<Ipwhitelist>(ipurl).toPromise();
+    console.log(ipwhitelist);
+    if (ipwhitelist !== null) {
+      // show picture and status
+      const phrase = this.route.snapshot.paramMap.get('text');
+      this.profile = null;
+      const url = `${this.api}/opid/v/${phrase}`;
+      this.profile = await this.http.get<Profile>(url).toPromise();
+    }
+    else {
+      const phrase = this.route.snapshot.paramMap.get('text');
+      this.tmpProfile = null;
+      this.valid = false;
+      const url = `${this.api}/opid/v/${phrase}`;
+      this.tmpProfile = await this.http.get<Profile>(url).toPromise();
+      this.name = `${this.tmpProfile.name.first} ${this.tmpProfile.name.last}`;
+      // present verify token input box
+      this.validate = 'start validation';
+      // if token is valid
+      // show picture and status
+      // if (this.valid === true) {
+      //   // show profile
+      // }
+    }
+  }
+
+  ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    // avoid memory leaks here by cleaning up after ourselves. If we
+    // don't then we will continue to run our initialiseInvites()
+    // method on every navigationEnd event.
+    if (this.navigationSubscription) {
+       this.navigationSubscription.unsubscribe();
+    }
+  }
+
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // Let the app keep running by returning an empty result.
+      return error;
+    };
+  }
+
+}
+

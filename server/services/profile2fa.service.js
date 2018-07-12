@@ -16,7 +16,7 @@ const proveIdentity = async (req, res, next) => {
     profile = await cursor.next();
     if ( profile != null ) {
       // get mobile number
-      const mobile = await profile.mobile; 
+      const mobile = await profile.mobile;
       // get secret
       const secret = await profile.two_factor_secret;
       // generate token
@@ -33,7 +33,7 @@ const proveIdentity = async (req, res, next) => {
 
   } catch (error) {
     console.log("Error: " + error);
-    return await res.send( "Error: " + error );      
+    return await res.send( "Error: " + error );
   }
 }
 
@@ -59,7 +59,7 @@ const verifyToken = async (req, res, next) => {
     }
   } catch (error) {
     console.log("Error: " + error);
-    return await res.send( "Error: " + error );      
+    return await res.send( "Error: " + error );
   }
 }
 
