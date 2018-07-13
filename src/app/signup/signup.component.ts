@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from './../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 // import { User } from './../auth/user';
 
 @Component({
@@ -19,14 +19,14 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,          // {3}
     private authService: AuthService, // {4}
-    private router: Router            // { NILAGAY NA DITO }    
+    private router: Router            // { NILAGAY NA DITO }
   ) { }
 
   ngOnInit() {
     this.form = this.fb.group({     // {5}
       userName: ['', Validators.required],
       password: ['', Validators.required]
-    });    
+    });
   }
 
   isFieldInvalid(field: string) { // {6}
@@ -43,7 +43,7 @@ export class SignupComponent implements OnInit {
       //   username: this.username,
       //   password: this.password
       // }
-  
+
       this.authService.registerUser(this.form.value) // {7}
       .subscribe( async _ => {
         if ( _.success ) {

@@ -13,11 +13,11 @@
           </div>
           <div class="row">
             <mat-form-field class="full-width-input">
-              <input matInput placeholder="Enter code" [(ngModel)]="token" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              <input matInput placeholder="Enter code" [(ngModel)]="token" required style="width:100%;font-weight:bold;font-size:large;color: #424242;">
             </mat-form-field>
           </div>
           <mat-card-actions>
-            <button mat-raised-button color="accent">VERIFY</button>
+            <button mat-raised-button (click)="onValidate()" color="accent">VERIFY</button>
           </mat-card-actions>
         </mat-card>
       </div>
@@ -31,8 +31,6 @@
         <mat-card class="column-card">
           <img mat-card-image src="{{profile.photothumbnailurl}}" alt="Photo">
         </mat-card>
-      </div>
-      <div class="column">
         <mat-card class="column-card">
           <mat-card-header>
             <div mat-card-avatar><mat-icon aria-label="STATUS">person</mat-icon></div>
@@ -45,6 +43,9 @@
           </div>
         </mat-card>
       </div>
+      <!-- <div class="column">
+
+      </div> -->
     </div>
   </mat-card>
 </div>

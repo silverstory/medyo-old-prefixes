@@ -1,7 +1,10 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+// import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Ipwhitelist } from '../ipwhitelist';
+import { ValidateTokenService } from '../validate-token.service';
+import { MatSnackBar } from '@angular/material';
 
 // ** NEW ANIMATION ** //
 import {trigger, stagger, animate, style, group, query, transition, keyframes} from '@angular/animations';
@@ -41,24 +44,29 @@ const httpOptions = {
   }
 })
 export class OPIDComponent implements OnInit, OnDestroy {
-
+  // myForm: FormGroup;
   @Input() profile: Profile = null;
   @Input() validate: String = null;
+  // @Input() invalidToken: String = null;
   private tmpProfile: Profile = null;
-  token: string;
   name: string;
   valid: Boolean = false;
   navigationSubscription;
-
   client: String;
   phrase;
   private api = '/api';
 
+  token: String;
+
   constructor(private http: HttpClient,
               private route: ActivatedRoute,
               private router: Router,
-              private location: Location
+              private location: Location,
+              // private fb: FormBuilder,
+              private validateTokenService: ValidateTokenService,
+              public snackBar: MatSnackBar
             ) {
+
     // subscribe to the router events - storing the subscription so
     // we can unsubscribe later.
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -72,6 +80,8 @@ export class OPIDComponent implements OnInit, OnDestroy {
   async getProfile() {
 
     this.validate = null;
+    this.profile = null;
+    // this.invalidToken = null;
 
     // get client ip
     const data = await this.http.get<any>('https://api.ipify.org?format=json').toPromise();
@@ -84,7 +94,6 @@ export class OPIDComponent implements OnInit, OnDestroy {
     if (ipwhitelist !== null) {
       // show picture and status
       const phrase = this.route.snapshot.paramMap.get('text');
-      this.profile = null;
       const url = `${this.api}/opid/v/${phrase}`;
       this.profile = await this.http.get<Profile>(url).toPromise();
     }
@@ -97,15 +106,30 @@ export class OPIDComponent implements OnInit, OnDestroy {
       this.name = `${this.tmpProfile.name.first} ${this.tmpProfile.name.last}`;
       // present verify token input box
       this.validate = 'start validation';
-      // if token is valid
-      // show picture and status
-      // if (this.valid === true) {
-      //   // show profile
-      // }
+      const sendToken: string = await this.validateTokenService.sendToken(this.tmpProfile.profileid, this.tmpProfile.distinction);
     }
   }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  async onValidate() {
+    this.valid =
+      await this.validateTokenService.validateToken(this.tmpProfile.profileid, this.tmpProfile.distinction, this.token);
+      if (this.valid) {
+        // this.invalidToken = null;
+        // hide token card
+        this.validate = null;
+        // show profile card
+        const phrase = this.route.snapshot.paramMap.get('text');
+        const url = `${this.api}/opid/v/${phrase}`;
+        this.profile = await this.http.get<Profile>(url).toPromise();
+      } else {
+        this.profile = null;
+        // this.invalidToken = 'invalid token';
+        this.snackBar.open('Oops, that is not a valid code.', 'Talk about restrictions!', {
+          duration: 3000,
+        });
+      }
   }
 
   ngOnDestroy() {
