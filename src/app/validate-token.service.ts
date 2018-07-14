@@ -26,7 +26,7 @@ export class ValidateTokenService {
       profileid,
       distinction
      }, httpOptions).toPromise();
-    return data.message;
+    return data;
   }
 
 }

@@ -1,8 +1,8 @@
-
+const config = require("../config/config");
 // Twilio Credentials
 // You must implement this in a secret
-const accountSid = 'AC285524725f90d44a12b696b4e4e09088';
-const authToken = 'cfaa7e0aa6cf38c1765f8763e0231c3e';
+const accountSid = config.TWILIO_ACCOUNT_SID;
+const authToken = config.TWILIO_AUTH_TOKEN;
 
 // require the Twilio module and create a REST client
 const client = require('twilio')(accountSid, authToken);
@@ -12,7 +12,7 @@ const createSMS = async (number, sms) => {
     const message = await client.messages
     .create({
       to: number,
-      from: '+16105494035',
+      from: config.TWILIO_FROM_NUMBER,
       body: sms,
     });
     // console.log(message.sid);

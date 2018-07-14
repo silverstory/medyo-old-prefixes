@@ -13,18 +13,28 @@ router.get('/ipwhitelist/c/:ip', async (req, res, next) => {
   ipwhitelistService.findIpwhitelistByIp(req, res, next);
 });
 
-// GET
+// GET by ID
 router.get('/ipwhitelist/get/:id', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
   ipwhitelistService.getIpwhitelist(req, res, next);
 });
 
-// ADD or EDIT
+// POST
 router.post('/ipwhitelist', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
   ipwhitelistService.postIpwhitelist(req, res, next);
 });
 
-// DELETE
-router.delete('/ipwhitelist', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
+// PUT
+router.put('/ipwhitelist/:id', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
+  ipwhitelistService.putIpwhitelist(req, res, next);
+});
+
+// DELETE by ID
+router.delete('/ipwhitelist/:id', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
+  ipwhitelistService.deleteIpwhitelistById(req, res, next);
+});
+
+// DELETE by IP
+router.delete('/ipwhitelist/delete/:ip', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
   ipwhitelistService.deleteIpwhitelistByIp(req, res, next);
 });
 

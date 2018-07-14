@@ -40,6 +40,10 @@ export class SearchBarComponent implements OnInit {
     const url_arr = str.split('/');
     const hmac = url_arr.pop();
 
+    setTimeout(() => {
+      this.value = '';
+    }, 15000);
+
     // second find and retrieve the document from db
     try {
 

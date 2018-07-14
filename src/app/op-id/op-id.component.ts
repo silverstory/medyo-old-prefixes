@@ -47,6 +47,7 @@ export class OPIDComponent implements OnInit, OnDestroy {
   // myForm: FormGroup;
   @Input() profile: Profile = null;
   @Input() validate: String = null;
+  @Input() resendToken: String = null;
   // @Input() invalidToken: String = null;
   private tmpProfile: Profile = null;
   name: string;
@@ -81,6 +82,7 @@ export class OPIDComponent implements OnInit, OnDestroy {
 
     this.validate = null;
     this.profile = null;
+    this.resendToken = null;
     // this.invalidToken = null;
 
     // get client ip
@@ -106,11 +108,36 @@ export class OPIDComponent implements OnInit, OnDestroy {
       this.name = `${this.tmpProfile.name.first} ${this.tmpProfile.name.last}`;
       // present verify token input box
       this.validate = 'start validation';
-      const sendToken: string = await this.validateTokenService.sendToken(this.tmpProfile.profileid, this.tmpProfile.distinction);
+      const sendToken: any = await this.validateTokenService.sendToken(this.tmpProfile.profileid, this.tmpProfile.distinction);
+      if (sendToken.success) {
+        this.snackBar.open('Verification code sent.', 'Code is now airborne =^=', {
+          duration: 3000,
+        });
+      } else {
+        this.resendToken = 'Sending failed';
+        this.snackBar.open('Sending code failed!', 'Something went wrong :(', {
+          duration: 3000,
+        });
+      }
     }
   }
 
   ngOnInit() { }
+
+  async resendCode() {
+    this.resendToken = null;
+    const sendToken: any = await this.validateTokenService.sendToken(this.tmpProfile.profileid, this.tmpProfile.distinction);
+    if (sendToken.success) {
+      this.snackBar.open('Verification code sent.', 'Code is now airborne =^=', {
+        duration: 3000,
+      });
+    } else {
+      this.resendToken = 'Sending failed';
+      this.snackBar.open('Sending code failed!', 'Something went wrong :(', {
+        duration: 3000,
+      });
+    }
+  }
 
   async onValidate() {
     this.valid =

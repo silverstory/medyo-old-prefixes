@@ -25,10 +25,17 @@ const proveIdentity = async (req, res, next) => {
       const message = `Your token is : ${token}`
       // send token via SMS
       const messageid = await sms.sendSMS(mobile, message);
-      console.log(messageid);
-      return await res.json( { message: `A text message with a 6-digit verification code was just sent to ${profile.name.first} ${profile.name.last}'s mobile number` } );
+
+      if (messageid === null) {
+        console.log("error sending");
+        return await res.json( { success: false, message: `A text message with a 6-digit verification code was just sent to ${profile.name.first} ${profile.name.last}'s mobile number` } );
+      } else {
+        console.log(messageid);
+        return await res.json( { success: true, message: `A text message with a 6-digit verification code was just sent to ${profile.name.first} ${profile.name.last}'s mobile number` } );        
+      }
+      
     } else {
-      return await res.json( { message: `something went wrong :(` } );
+      return await res.json( { success: true, message: `something went wrong :(` } );
     }
 
   } catch (error) {

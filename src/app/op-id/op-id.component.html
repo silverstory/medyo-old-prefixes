@@ -6,19 +6,29 @@
         <mat-card class="column-card">
           <mat-card-header>
             <div mat-card-avatar><mat-icon aria-label="VALIDATE">verified_user</mat-icon></div>
-            <mat-card-title>VALIDATE</mat-card-title>
+            <mat-card-title>ID VERIFICATION</mat-card-title>
           </mat-card-header>
           <div class="row">
-            <p>A text message with a 6-digit verification code was just sent to {{name}}'s mobile number</p>
+            <h4 style="color: #817e7e">We've sent a code to {{name}}'s phone</h4>
           </div>
           <div class="row">
             <mat-form-field class="full-width-input">
               <input matInput placeholder="Enter code" [(ngModel)]="token" required style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              <mat-hint align="end">6-digit verification code</mat-hint>
+              <button mat-button *ngIf="token" matSuffix mat-icon-button aria-label="Clear" (click)="token=''">
+                <mat-icon>close</mat-icon>
+              </button>
             </mat-form-field>
           </div>
           <mat-card-actions>
-            <button mat-raised-button (click)="onValidate()" color="accent">VERIFY</button>
+            <button mat-raised-button (click)="onValidate()" color="primary" style="width: 100%;">VERIFY</button>
           </mat-card-actions>
+          <div class="row">
+            <p style="color: #babacb;width: 100%;text-align: center">Still waiting for the code?</p>
+          </div>
+          <div class="row">
+            <button mat-button (click)="resendCode()" style="text-decoration: underline;color: #b3b3b3;width: 100%">Resend the code</button>
+          </div>
         </mat-card>
       </div>
     </div>
