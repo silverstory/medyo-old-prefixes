@@ -11,14 +11,17 @@ services:
       DB_NAME: your-mongo-database-name
       DB_USER_NAME: your-mongo-app-user
       DB_PASSWORD: your-mongo-app-password
+      TWILIO_ACCOUNT_SID: your-twilio-accont-sid
+      TWILIO_AUTH_TOKEN: your-twilio-auth-token
+      TWILIO_FROM_NUMBER: your-twilio-from-number
     networks:
       - webnet
   web:
-    image: iameprel/ciss:0.0.1
+    image: iameprel/ciss:0.0.9
     deploy:
-      replicas: 5
+      replicas: 3
       update_config:
-        parallelism: 5
+        parallelism: 1
         delay: 10s
       restart_policy:
         condition: on-failure
@@ -27,7 +30,7 @@ services:
       resources:
         limits:
           cpus: "0.1"
-          memory: 50M
+          memory: 100M
     user: root
     working_dir: /usr/src/app
     # when using just a mounted secret folder

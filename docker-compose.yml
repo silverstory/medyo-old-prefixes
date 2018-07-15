@@ -1,11 +1,11 @@
 version: "3.3"
 services:
   web:
-    image: iameprel/ciss:0.0.1
+    image: iameprel/ciss:0.0.9
     deploy:
-      replicas: 5
+      replicas: 3
       update_config:
-        parallelism: 5
+        parallelism: 1
         delay: 10s
       restart_policy:
         condition: on-failure
@@ -14,7 +14,7 @@ services:
       resources:
         limits:
           cpus: "0.1"
-          memory: 50M
+          memory: 100M
     user: root
     working_dir: /usr/src/app
     secrets:
@@ -24,6 +24,9 @@ services:
       - DB_NAME
       - DB_USER_NAME
       - DB_PASSWORD
+      - TWILIO_ACCOUNT_SID
+      - TWILIO_AUTH_TOKEN
+      - TWILIO_FROM_NUMBER
     environment:
       NODE_ENV: production
     ports:
@@ -53,6 +56,12 @@ secrets:
   DB_USER_NAME:
     external: true
   DB_PASSWORD:
+    external: true
+  TWILIO_ACCOUNT_SID:
+    external: true
+  TWILIO_AUTH_TOKEN:
+    external: true
+  TWILIO_FROM_NUMBER:
     external: true
 networks:
   webnet:
