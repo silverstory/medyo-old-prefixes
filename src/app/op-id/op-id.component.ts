@@ -111,12 +111,12 @@ export class OPIDComponent implements OnInit, OnDestroy {
       const sendToken: any = await this.validateTokenService.sendToken(this.tmpProfile.profileid, this.tmpProfile.distinction);
       if (sendToken.success) {
         this.snackBar.open('Verification code sent.', 'Code is now airborne =^=', {
-          duration: 3000,
+          duration: 5000,
         });
       } else {
         this.resendToken = 'Sending failed';
         this.snackBar.open('Sending code failed!', 'Something went wrong :(', {
-          duration: 3000,
+          duration: 5000,
         });
       }
     }
@@ -129,12 +129,12 @@ export class OPIDComponent implements OnInit, OnDestroy {
     const sendToken: any = await this.validateTokenService.sendToken(this.tmpProfile.profileid, this.tmpProfile.distinction);
     if (sendToken.success) {
       this.snackBar.open('Verification code sent.', 'Code is now airborne =^=', {
-        duration: 3000,
+        duration: 5000,
       });
     } else {
       this.resendToken = 'Sending failed';
       this.snackBar.open('Sending code failed!', 'Something went wrong :(', {
-        duration: 3000,
+        duration: 5000,
       });
     }
   }
@@ -154,7 +154,7 @@ export class OPIDComponent implements OnInit, OnDestroy {
         this.profile = null;
         // this.invalidToken = 'invalid token';
         this.snackBar.open('Oops, that is not a valid code.', 'Talk about restrictions!', {
-          duration: 3000,
+          duration: 5000,
         });
       }
   }

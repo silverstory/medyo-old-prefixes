@@ -45,3 +45,12 @@
   padding: 5px;
   margin: 10px 0 10px 0;
 }
+
+.profile {
+  font: inherit;
+  width: 100%;
+  font-weight: bold;
+  font-size: large;
+  color: #424242;
+  text-align: center;
+}
