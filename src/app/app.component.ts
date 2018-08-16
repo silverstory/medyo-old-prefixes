@@ -17,7 +17,7 @@ import { routerTransition } from './router.animations';
 // export class AppComponent implements OnInit {
   export class AppComponent {
   // @HostBinding('@routerTransition') routerTransition = true; // dinagdag lang
-  title = 'ciss';
+  title = 'prefixes';
   // id = '';
   // state = '';
   // constructor(private router: Router,

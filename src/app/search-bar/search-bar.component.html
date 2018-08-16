@@ -1,8 +1,8 @@
 <div class="search-container" *ngIf="isLoggedIn$ | async as isLoggedIn">
-  <mat-card *ngIf="isLoggedIn">  
+  <mat-card *ngIf="isLoggedIn">
     <mat-form-field class="full-width-input" hintLabel="Set input focus here before scanning the QR Code">
 
-      <input matInput placeholder="Scan QR Code or enter CISS Token"
+      <input matInput placeholder="Scan QR Code or enter prefixes Token"
             [(ngModel)]="value"
             (keyup.enter)="search(value)" />
       <mat-hint align="end">Central Information Security System</mat-hint>
@@ -13,7 +13,7 @@
       <!-- <input matInput #searchBox
             [(ngModel)]="value"
             (keyup.enter)="search(searchBox.value)"
-            placeholder="Scan QR Code or enter CISS Token"> -->
+            placeholder="Scan QR Code or enter prefixes Token"> -->
       <!-- (blur)="search(searchBox.value)" -->
       <!-- <mat-hint align="end">Central Information Security System</mat-hint> -->
     </mat-form-field>

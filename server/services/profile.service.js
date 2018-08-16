@@ -57,11 +57,11 @@ const postProfile = async (req, res, next) => {
     // generate two factor secret
     const secret = await twofactor.generateSecret();
     // modify the document with the new
-    // code [cisscode], token [cisstoken], url [cissinqtext]
+    // code [prefixescode], token [prefixestoken], url [prefixesinqtext]
     // and two factor secret for this profile
-    saved_profile.cisscode = hmac;
-    saved_profile.cisstoken = token;
-    saved_profile.cissinqtext = url;
+    saved_profile.prefixescode = hmac;
+    saved_profile.prefixestoken = token;
+    saved_profile.prefixesinqtext = url;
     saved_profile.two_factor_secret = secret;
     // save the updated document
     // const updated_profile = await Profile.findByIdAndUpdate({_id: saved_profile._id}, saved_profile);
@@ -87,8 +87,8 @@ const getProfileByIdDist = async (req, res, next) => {
     profile = await cursor.next();
     if ( profile != null ) {
       // add qrcode to json
-      // profile.qrcode = await qrcode.createQRx64Image(profile.cissinqtext);
-      const url = await qrcode.createQRx64Image(profile.cissinqtext);
+      // profile.qrcode = await qrcode.createQRx64Image(profile.prefixesinqtext);
+      const url = await qrcode.createQRx64Image(profile.prefixesinqtext);
       // profile.set('qrcode', url);
       return await res.json( { profile: profile, qrcode: url } );
     } else {

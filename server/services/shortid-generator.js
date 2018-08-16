@@ -19,7 +19,7 @@ module.exports.CreateShortId = async () => {
       tries++;
 
       const profile = await Profile.findOne({
-        cisstoken: newShortId
+        prefixestoken: newShortId
       });
 
       if( profile == null ) {

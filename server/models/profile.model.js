@@ -39,13 +39,13 @@ const ProfileSchema = new Schema({
     type: String,
     required: [true, 'Record Status is required']
   },
-  cisscode: {
+  prefixescode: {
     type: String
   },
-  cissinqtext: {
+  prefixesinqtext: {
     type: String
   },
-  cisstoken: {
+  prefixestoken: {
     type: String
   },
   photothumbnailurl: {
@@ -114,12 +114,12 @@ const ProfileSchema = new Schema({
     collection: 'profiles',
     read: 'nearest'
 });
-ProfileSchema.index( { cisscode: 'text', cisstoken: 'text', cissinqtext: 'text' }, { weights: { cisscode: 3, cisstoken: 2, cissinqtext: 1 }} );
+ProfileSchema.index( { prefixescode: 'text', prefixestoken: 'text', prefixesinqtext: 'text' }, { weights: { prefixescode: 3, prefixestoken: 2, prefixesinqtext: 1 }} );
 
-// ProfileSchema.index( { cissinqtext: 'text', cisstoken: 'text' }, { weights: { cissinqtext: 3, cisstoken: 2, 'name.first': 1 }} );
+// ProfileSchema.index( { prefixesinqtext: 'text', prefixestoken: 'text' }, { weights: { prefixesinqtext: 3, prefixestoken: 2, 'name.first': 1 }} );
 
-// To create an index to support text search on, say, cissinqtext and name.first:
-// ProfileSchema.index( { cissinqtext: 'text', 'name.first': 'text' } );
+// To create an index to support text search on, say, prefixesinqtext and name.first:
+// ProfileSchema.index( { prefixesinqtext: 'text', 'name.first': 'text' } );
 // Or if you want to include all string fields in the index, use the '$**' wildcard:
 // schema.index({'$**': 'text'});
 

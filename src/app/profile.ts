@@ -11,9 +11,9 @@ export interface Profile {
   distinction: String;
   personaccesslevel: String;
   recordstatus: String;
-  cisscode: String;
-  cissinqtext: String;
-  cisstoken: String;
+  prefixescode: String;
+  prefixesinqtext: String;
+  prefixestoken: String;
   photothumbnailurl: String;
   employee: {
     position: String;

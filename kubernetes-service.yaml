@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ciss
+  name: prefixes
   labels:
-    app: ciss
+    app: prefixes
     tier: frontend
 spec:
   # comment or delete the following line if you want to use a LoadBalancer
@@ -22,7 +22,7 @@ spec:
     nodePort: 30036
     protocol: TCP
   selector:
-    app: ciss
+    app: prefixes
     tier: frontend
 # galing din sa https://kubernetes.io/docs/concepts/services-networking/service/
 # status:

@@ -20,13 +20,13 @@ router.get('/profile/get/:id', passport.authenticate('jwt',{session:false}), asy
   profileService.getProfile(req, res, next);
 });
 
-// Add CISS Profile
+// Add prefixes Profile
 // POST http://localhost:3000/api/profile/
 router.post('/profile', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
   profileService.postProfile(req, res, next);
 });
 
-// Find CISS Profile By Distinction and ProfileId
+// Find prefixes Profile By Distinction and ProfileId
 // POST http://localhost:3000/api/profile/print
 router.post('/profile/view', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
   profileService.getProfileByIdDist(req, res, next);
