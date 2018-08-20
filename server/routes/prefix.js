@@ -10,7 +10,7 @@ router.get('/prefix/:text', passport.authenticate('jwt',{session:false}), async 
 
 // GET by Prefix
 router.get('/prefix/c/:prefix', async (req, res, next) => {
-  prefixService.findPrefixByPrefixByIp(req, res, next);
+  prefixService.findPrefixByPrefix(req, res, next);
 });
 
 // GET by ID
@@ -30,7 +30,7 @@ router.put('/prefix/:id', passport.authenticate('jwt',{session:false}), async (r
 
 // DELETE by ID
 router.delete('/prefix/:id', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
-  prefixService.deletePrefix(req, res, next);
+  prefixService.deletePrefixById(req, res, next);
 });
 
 // DELETE by Prefix
