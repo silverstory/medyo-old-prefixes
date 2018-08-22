@@ -7,10 +7,6 @@ const AppSchema = new Schema({
     type: String,
     required: [true, 'App name is required']
   },
-  authtoken: {
-    type: String,
-    required: [true, 'Auth token is required']
-  },
   datecreated: {
     type: Date,
     // `Date.now()` returns the current unix timestamp as a number
@@ -21,7 +17,7 @@ const AppSchema = new Schema({
     collection: 'apps',
     read: 'nearest'
 });
-AppSchema.index( { appname: 'text', authtoken: 'text' }, { weights: { appname: 2, authtoken: 1 }} );
+AppSchema.index( { appname: 'text' }, { weights: { appname: 1 }} );
 
 // ProfileSchema.index( { prefixesinqtext: 'text', prefixestoken: 'text' }, { weights: { prefixesinqtext: 3, prefixestoken: 2, 'name.first': 1 }} );
 

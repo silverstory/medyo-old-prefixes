@@ -1,5 +1,6 @@
 const util = require('util');
 const App = require('../models/app.model');
+const AppAuthTokenService = require('../services/appauthtoken.service');
 
 const postApp = async (req, res, next) => {
   const _app = req.body;
@@ -123,6 +124,28 @@ const findAppByAppName = async (req, res, next) => {
   }
 }
 
+// SMS Sending
+const generateAppAuthToken = async (req, res, next) => {
+    AppAuthTokenService.generateAppAuthToken(req, res, next);
+}
+
+const isAppAuthTokenValid = async ( appauthtoken ) => {
+  try {
+    const app = await
+    App
+    .findById({_id: AppAuthTokenService.decodeAppAuthToken( appauthtoken )});
+    if ( app != null ) {
+      return await true;
+    } else {
+      return await false;
+    }
+    return await app;
+  } catch (error) {
+    console.log("Error: " + error);
+    return await res.send( "Error: " + error );
+  }
+}
+
 module.exports = {
   postApp,
   putApp,
@@ -130,5 +153,7 @@ module.exports = {
   getApp,
   deleteAppById,
   deleteAppByAppName,
-  findAppByAppName
+  findAppByAppName,
+  generateAppAuthToken,
+  isAppAuthTokenValid
 };

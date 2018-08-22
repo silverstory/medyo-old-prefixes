@@ -38,4 +38,9 @@ router.delete('/app/delete/:appname', passport.authenticate('jwt',{session:false
   appService.deleteAppByAppName(req, res, next);
 });
 
+// Generate App Auth Token by ID
+router.get('/app/gen/:id', passport.authenticate('jwt',{session:false}), async (req, res, next) => {
+  appService.generateAppAuthToken(req, res, next);
+});
+
 module.exports = router;
