@@ -12,8 +12,8 @@ function connect() {
     return mongoose.connect(db.database, {
         auth:
         {
-            user: config.DB_USER_NAME,
-            password: config.DB_PASSWORD,
+            user: config.PREFIXES_DB_USER_NAME,
+            password: config.PREFIXES_DB_PASSWORD,
         }
     })
     .then(() => console.log('connection successful'))
