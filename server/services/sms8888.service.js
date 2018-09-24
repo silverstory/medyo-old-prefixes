@@ -1,5 +1,4 @@
-// const config = require('./config/config');
-// const appService = require('./app.service');
+const appService = require('./app.service');
 const Prefix = require('../models/prefix.model');
 const prefixService = require('./prefix.service');
 
@@ -7,7 +6,7 @@ const createSMS = async (token, number, message) => {
   try {
     // check if app's auth token is valid
     // isAppAuthTokenValid
-    if (isAppAuthTokenValid(token) === true) {
+    if (appService.isAppAuthTokenValid(token) === true) {
       // check prefix if globe or smart
       number = number.replace("+63", "0");
       prefix: Prefix = await prefixService.getNetwork(number);
