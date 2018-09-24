@@ -123,6 +123,25 @@ const findPrefixByPrefix = async (req, res, next) => {
   }
 }
 
+const getNetwork = async (number) => {
+  try {
+    // extract prefix from number calculate like 0956 not +63 even if source has +63
+    const _prefix = number.slice(0, 4);
+    // find in db
+    prefix = null;
+    const cursor = await Prefix.find({prefix: _prefix}, { _id: 0 }).limit(1).cursor();
+    prefix = await cursor.next();
+    if (prefix != null) {
+      return prefix;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.log("Error: " + error);
+    return await null;
+  }
+}
+
 module.exports = {
   postPrefix,
   putPrefix,
@@ -130,5 +149,6 @@ module.exports = {
   getPrefix,
   deletePrefixById,
   deletePrefixByPrefix,
-  findPrefixByPrefix
+  findPrefixByPrefix,
+  getNetwork
 };

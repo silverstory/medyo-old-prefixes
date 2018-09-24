@@ -1,6 +1,6 @@
 const secrets = require("./secrets.js");
 module.exports = {
-    DB_HOST: secrets.get("DB_HOST") || process.env.DB_HOST,
+    PREFIXES_DB_HOST: secrets.get("DB_HOST") || process.env.PREFIXES_DB_HOST,
     PREFIXES_DB_NAME: secrets.get("DB_NAME") || process.env.PREFIXES_DB_NAME,
     PREFIXES_DB_USER_NAME: secrets.get("DB_USER_NAME") || process.env.PREFIXES_DB_USER_NAME,
     PREFIXES_DB_PASSWORD: secrets.get("DB_PASSWORD") || process.env.PREFIXES_DB_PASSWORD,

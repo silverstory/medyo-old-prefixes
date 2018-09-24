@@ -51,6 +51,8 @@ const opapp = require('./routes/app');
 app.use('/api', opapp);
 const smsdeliverylog = require('./routes/smsdeliverylog');
 app.use('/api', smsdeliverylog);
+const sms = require('./routes/sms');
+app.use('/api', sms);
 
 // try to implement this line if it'll solve resource not found if :3000/{path}
 // app.get('*', (req, res) => {
