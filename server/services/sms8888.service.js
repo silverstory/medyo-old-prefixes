@@ -1,5 +1,5 @@
-const config = require('./config/config');
-const appService = require('./app.service');
+// const config = require('./config/config');
+// const appService = require('./app.service');
 const Prefix = require('../models/prefix.model');
 const prefixService = require('./prefix.service');
 
